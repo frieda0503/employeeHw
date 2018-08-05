@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.demo.model.Department;
 import com.springboot.demo.service.DepartmentService;
+//github.com/frieda0503/employeeHw.git
+import com.springboot.demo.model.Department;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -30,21 +31,48 @@ public class DepartmentController {
 
 	// get all data
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = "/get/departments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/departments/all")
+	@ResponseBody
 	public List<Department> getAll() {
 		return departmentService.getAll();
 	}
 
+	// get all data
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/departments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Page<Department> getAllBy(
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		return departmentService.getAll(page, size);
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/condition")
+	public Page<Department> getByCondition(
+			@RequestParam(required = false) String employeeName,
+			@RequestParam(required = false) Integer employeeId,
+			@RequestParam(required = false) Integer age,
+			@RequestParam(required = false) String departmentName,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "5") Integer size) {
+
+		Page<Department> result = departmentService.getDepartmentData(
+				employeeName, employeeId, age, departmentName, page, size);
+		return result;
+	}
+
 	// add data
-	@PostMapping("/add/department")
+	@PostMapping("/department")
 	public void addDepartment(@RequestBody Department department) {
 		departmentService.addDepartment(department);
 	}
 
 	// update data
-	@PutMapping("/update/department")
-	public void updateDepartment(@RequestBody Department department) {
-		departmentService.updateDepartment(department);
+	@PutMapping("/department/{id}")
+	public Department updateDepartment(
+			@PathVariable(required = true) Integer id,
+			@RequestBody Department department) {
+		return departmentService.updateDepartment(id, department);
 	}
 
 	// delete data
@@ -52,25 +80,5 @@ public class DepartmentController {
 	public void deleteDepartment(@PathVariable Integer id) {
 		departmentService.deleteDepartment(id);
 	}
-	
-	// find data by multiple condition
-//		@ResponseStatus(HttpStatus.OK)
-//		@GetMapping(value = "/find/employees", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//		public List<Employee> findByCondition() {
-//			return empRepository.findAll();
-//		}
-	// get all data
-		@ResponseStatus(HttpStatus.OK)
-		@GetMapping(value = "/get/department/employees", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		public @ResponseBody Page<Department> getAll(
-				@RequestParam(required = false) String employeeName,
-				@RequestParam(required = false) Integer employeeId,
-				@RequestParam(required = false) Integer age,
-				@RequestParam(required = false) String departmentName) {
-			return departmentService.getEmployeeData(employeeName, employeeId, age,
-					departmentName);
-
-			// String employeeName, int employeeId,int age,String departmentName
-		}
 
 }

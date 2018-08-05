@@ -1,20 +1,10 @@
 package com.springboot.demo.model;
 
+import com.google.common.collect.Sets;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "DEPARTMENT")
@@ -33,19 +23,6 @@ public class Department implements Serializable {
 	@JoinColumn(name = "DEP_ID", updatable = false)
 	private Set<Employee> employees = Sets.newLinkedHashSet();
 
-	@Override
-	public String toString() {
-		return "Department [id=" + id + ", name=" + dep_name + "]";
-	}
-
-	public Set<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -62,4 +39,20 @@ public class Department implements Serializable {
 		this.dep_name = dep_name;
 	}
 
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	@Override
+	public String toString() {
+		return "Department{" +
+				"id=" + id +
+				", dep_name='" + dep_name + '\'' +
+				", employees=" + employees +
+				'}';
+	}
 }

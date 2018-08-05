@@ -32,15 +32,27 @@ public class Employee implements Serializable {
 	private String name;
 
 	@Column(name = "DEP_ID")
-	private Integer dep_id;
+	private int dep_id;
 
-	public Integer getDep_id() {
-		return dep_id;
-	}
+	@Column(name = "GENDER")
+	private String gender;
 
-	public void setDep_id(Integer dep_id) {
-		this.dep_id = dep_id;
-	}
+	@Column(name = "PHONE")
+	private String phone;
+
+	@Column(name = "ADDRESS")
+	private String address;
+
+	@Column(name = "AGE")
+	private int age;
+
+	@CreatedDate
+	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
+	private Date createTime;
+
+	@LastModifiedDate
+	@Column(name = "LAST_MODIFY")
+	private Date lastModify;
 
 	public int getId() {
 		return id;
@@ -56,6 +68,14 @@ public class Employee implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getDep_id() {
+		return dep_id;
+	}
+
+	public void setDep_id(int dep_id) {
+		this.dep_id = dep_id;
 	}
 
 	public String getGender() {
@@ -107,29 +127,18 @@ public class Employee implements Serializable {
 		this.lastModify = lastModify;
 	}
 
-	@Column(name = "GENDER")
-	private String gender;
-
-	@Column(name = "PHONE")
-	private String phone;
-
-	@Column(name = "ADDRESS")
-	private String address;
-
-	@Column(name = "AGE")
-	private int age;
-
-	@CreatedDate
-	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
-	private Date createTime;
-
-	@LastModifiedDate
-	@Column(name = "LAST_MODIFY")
-	private Date lastModify;
-
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + "]";
+		return "Employee{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", dep_id=" + dep_id +
+				", gender='" + gender + '\'' +
+				", phone='" + phone + '\'' +
+				", address='" + address + '\'' +
+				", age=" + age +
+				", createTime=" + createTime +
+				", lastModify=" + lastModify +
+				'}';
 	}
-
 }
