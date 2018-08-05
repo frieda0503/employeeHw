@@ -39,7 +39,6 @@ public class DepartmentService {
 
 	public Department addDepartment(Department department) {
 		return departmentRepository.save(department);
-
 	}
 
 	public Department updateDepartment(Integer id, Department department) {
@@ -61,7 +60,6 @@ public class DepartmentService {
 	public Page<Department> getDepartmentData(String employeeName,
 			Integer employeeId, Integer age, String departmentName,
 			Integer page, Integer size) {
-		System.out.println("!!!" + employeeName);
 		Specification<Department> specification = new Specification<Department>() {
 			@Override
 			public Predicate toPredicate(Root<Department> root,
