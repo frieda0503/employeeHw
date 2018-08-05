@@ -14,7 +14,6 @@
 
 * all (list): GET http://localhost:8080/api/employees/all
 * all (page): GET http://localhost:8080/api/employees
-* add employee: POST http://localhost:8080/api/employee { "name" : "Emily" , "dep_id" : 1 , "gender" : "Female", "phone" : "0123456789"  
-                    , "address" : "testttt" , "age" : 30 }
+* add employee: POST http://localhost:8080/api/employee { "name" : "Emily" , "dep_id" : 1 , "gender" : "Female", "phone" : "0123456789"  , "address" : "testttt" , "age" : 30 }
 * update employee: [待補]
 * delete a department: DELETE [待補]
