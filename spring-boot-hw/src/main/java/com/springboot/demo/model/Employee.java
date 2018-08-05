@@ -64,11 +64,11 @@ public class Employee implements Serializable {
 		this.gender = gender;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -108,7 +108,7 @@ public class Employee implements Serializable {
 	private String gender;
 
 	@Column(name = "PHONE")
-	private int phone;
+	private String phone;
 
 	@Column(name = "ADDRESS")
 	private String address;
