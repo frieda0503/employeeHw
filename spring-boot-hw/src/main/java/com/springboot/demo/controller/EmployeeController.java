@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.demo.model.Department;
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.service.DepartmentService;
 import com.springboot.demo.service.EmployeeService;
@@ -27,22 +28,6 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@Autowired
-	private DepartmentService departmentService;
-
-	// get all data
-	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = "/get/employees", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Page<Employee> getAll(
-			@RequestParam(required = false) String employeeName,
-			@RequestParam(required = false) Integer employeeId,
-			@RequestParam(required = false) Integer age,
-			@RequestParam(required = false) String departmentName) {
-		return employeeService.getEmployeeData(employeeName, employeeId, age,
-				departmentName);
-
-		// String employeeName, int employeeId,int age,String departmentName
-	}
 
 	// add data
 	@PostMapping("/add/employee")

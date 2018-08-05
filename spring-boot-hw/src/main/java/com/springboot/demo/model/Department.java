@@ -46,6 +46,14 @@ public class Department implements Serializable {
 		return "Department [id=" + id + ", name=" + dep_name + "]";
 	}
 
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -15,6 +15,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "EMPLOYEE")
@@ -30,13 +32,13 @@ public class Employee implements Serializable {
 	private String name;
 
 	@Column(name = "DEP_ID")
-	private int dep_id;
-	
-	public int getDep_id() {
+	private Integer dep_id;
+
+	public Integer getDep_id() {
 		return dep_id;
 	}
 
-	public void setDep_id(int dep_id) {
+	public void setDep_id(Integer dep_id) {
 		this.dep_id = dep_id;
 	}
 
@@ -118,6 +120,7 @@ public class Employee implements Serializable {
 
 	@CreatedDate
 	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
+	@JsonFormat( pattern="yyyy-MM-ddHH:mm:ss") 
 	private Date createTime;
 
 	@LastModifiedDate
