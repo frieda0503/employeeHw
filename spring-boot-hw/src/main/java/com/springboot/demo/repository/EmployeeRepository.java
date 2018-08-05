@@ -2,8 +2,6 @@ package com.springboot.demo.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -14,15 +12,11 @@ import com.springboot.demo.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>,
 		JpaSpecificationExecutor<Employee> {
 
-	// GET /employees/:id
+	// find by id
 	@Override
 	Optional<Employee> findById(Integer id);
 
-	// GET /employees
-//	@Override
-//	Page<Employee> findAll(Pageable pageable);
-
-	// POST /employees
+	// insert / update
 	@SuppressWarnings("unchecked")
 	@Override
 	Employee save(Employee e);

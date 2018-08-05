@@ -90,6 +90,7 @@ public class Employee implements Serializable {
 		this.age = age;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -120,7 +121,6 @@ public class Employee implements Serializable {
 
 	@CreatedDate
 	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
-	@JsonFormat( pattern="yyyy-MM-ddHH:mm:ss") 
 	private Date createTime;
 
 	@LastModifiedDate

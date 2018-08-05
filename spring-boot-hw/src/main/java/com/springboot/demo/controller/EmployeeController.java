@@ -28,7 +28,6 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-
 	// add data
 	@PostMapping("/add/employee")
 	public void addEmployee(@RequestBody Employee employee) {
@@ -36,9 +35,10 @@ public class EmployeeController {
 	}
 
 	// update data
-	@PutMapping("/update/employee")
-	public void updateEmployee(@RequestBody Employee employee) {
-		employeeService.updateEmployee(employee);
+	@PutMapping("/update/employee/{id}")
+	public void updateEmployee(@PathVariable(required = true) Integer id,
+			@RequestBody Employee employee) {
+		employeeService.updateEmployee(id, employee);
 	}
 
 	// delete data

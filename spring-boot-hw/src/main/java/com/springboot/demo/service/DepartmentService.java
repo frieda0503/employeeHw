@@ -16,13 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.springboot.demo.model.Department;
 import com.springboot.demo.model.Employee;
@@ -38,25 +34,24 @@ public class DepartmentService {
 		return depRepository.findAll();
 	}
 
-	public void addDepartment(Department department) {
-		depRepository.save(department);
+	public Department addDepartment(Department department) {
+		return depRepository.save(department);
 	}
 
-	public void updateDepartment(Department department) {
-		depRepository.save(department);
+	public Department updateDepartment(Integer id, Department department) {
+		if (!depRepository.existsById(id)) {
+			throw new ResourceNotFoundException("Department is not found");
+		}
+		department.setId(id);
+		return depRepository.save(department);
 	}
 
 	public void deleteDepartment(Integer id) {
+		if (!depRepository.existsById(id)) {
+			throw new ResourceNotFoundException("Department is not found");
+		}
 		depRepository.deleteById(id);
 	}
-	
-	// find data by multiple condition
-//		@ResponseStatus(HttpStatus.OK)
-	// @GetMapping(value = "/find/employees", produces =
-	// MediaType.APPLICATION_JSON_UTF8_VALUE)
-	// public List<Employee> findByCondition() {
-	// return empRepository.findAll();
-	// }
 
 	public Page<Department> getEmployeeData(String employeeName,
 			Integer employeeId, Integer age, String departmentName) {
@@ -67,22 +62,19 @@ public class DepartmentService {
 					CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> list = new ArrayList<Predicate>();
 
-				// Join<Employee, Department> joinTable = root.join("dep_id",
-				// JoinType.INNER);
-
 				if (!StringUtils.isEmpty(departmentName)) {
 					list.add(criteriaBuilder.equal(root.get("dep_name"),
 							departmentName));
 				}
 
 				if (employeeId != null) {
-					Set<Employee> employees = (Set<Employee>) root.get("employees");
-					
+					Set<Employee> employees = (Set<Employee>) root
+							.get("employees");
+
 					System.out.println(employees);
-					
-					
+
 					list.add(criteriaBuilder.equal(
-							root.get("employees")..get("id"), employeeId));
+							root.get("employees").get("id"), employeeId));
 				}
 
 				// 姓名、員工編號、年齡、部門名稱(欄位皆為選填)

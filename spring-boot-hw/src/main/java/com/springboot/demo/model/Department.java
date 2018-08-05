@@ -32,14 +32,6 @@ public class Department implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "DEP_ID", updatable = false)
 	private Set<Employee> employees = Sets.newLinkedHashSet();
-	//
-	// public void addValue(Employee value) {
-	// values.add(value);
-	// }
-	//
-	// public void removeValue(Employee value) {
-	// values.remove(value);
-	// }
 
 	@Override
 	public String toString() {
@@ -69,7 +61,5 @@ public class Department implements Serializable {
 	public void setDep_name(String dep_name) {
 		this.dep_name = dep_name;
 	}
-
-	
 
 }
