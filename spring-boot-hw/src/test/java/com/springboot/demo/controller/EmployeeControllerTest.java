@@ -22,23 +22,27 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.springboot.demo.service.DepartmentService;
+import com.springboot.demo.service.EmployeeService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = DepartmentController.class, secure = false)
-@ContextConfiguration(classes = { DepartmentController.class,
-		DepartmentService.class })
-public class DepartmentControllerTest {
+@WebMvcTest(value = EmployeeController.class, secure = false)
+@ContextConfiguration(classes = { EmployeeController.class,
+		EmployeeService.class })
+public class EmployeeControllerTest {
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(
 			MediaType.APPLICATION_JSON.getType(),
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-	private final String DEPARTMENT_REQUEST = "{\"id\" : 1,\"dep_name\" : \"開發6科\"}";
-	private final String UPDATE_DEPARTMENT_REQUEST = "{\"dep_name\" : \"開發8科\"}";
+	private final String EMPLOYEE_REQUEST = "{\"id\" : 1,\"name\" : \"Tom\",\"gender\" : \"Male\"}";
+	private final String UPDATE_EMPLOYEE_REQUEST = "{\"name\" : \"Sunny\"}";
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	MockMvc mockMvc;
 
+	@MockBean
+	private EmployeeService employeeService;
+	
 	@MockBean
 	private DepartmentService departmentService;
 
@@ -48,30 +52,30 @@ public class DepartmentControllerTest {
 				.webAppContextSetup(webApplicationContext).build();
 	}
 
-	// test add department api
+	// test add employee api
 	@Test
-	public void testAddDepartmentData() throws Exception {
+	public void testAddEmployeeData() throws Exception {
 		mockMvc.perform(
-				post("/api/department").content(DEPARTMENT_REQUEST)
+				post("/api/employee").content(EMPLOYEE_REQUEST)
 						.contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andDo(print()).andExpect(status().isOk());
 
 	}
 
-	// test update department api
+	// test update employee api
 	@Test
-	public void testUpdateDepartmentData() throws Exception {
+	public void testUpdateEmployeeData() throws Exception {
 		mockMvc.perform(
-				put("/api/department/1").content(UPDATE_DEPARTMENT_REQUEST)
+				put("/api/employee/1").content(UPDATE_EMPLOYEE_REQUEST)
 						.contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andDo(print()).andExpect(status().isOk());
 	}
 
-	// test delete department
+	// test delete employee
 	@Test
-	public void testDeleteDepartmentData() throws Exception {
+	public void testDeleteEmployeeData() throws Exception {
 		mockMvc.perform(
-				delete("/api/departments/1").contentType(
+				delete("/api/employees/1").contentType(
 						MediaType.APPLICATION_JSON_UTF8)).andExpect(
 				status().isOk());
 	}
