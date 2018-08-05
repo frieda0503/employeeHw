@@ -2,21 +2,21 @@ package com.springboot.demo.service;
 
 import java.util.List;
 
+//github.com/frieda0503/employeeHw.git
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+//github.com/frieda0503/employeeHw.git
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+//github.com/frieda0503/employeeHw.git
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.repository.DepartmentRepository;
 import com.springboot.demo.repository.EmployeeRepository;
-//github.com/frieda0503/employeeHw.git
-import org.springframework.beans.factory.annotation.Autowired;
-//github.com/frieda0503/employeeHw.git
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-//github.com/frieda0503/employeeHw.git
 
 
 @Service
@@ -37,7 +37,7 @@ public class EmployeeService {
 	}
 
 
-	public Employee addEmployee(@RequestBody Employee employee) {
+	public Employee addEmployee(Employee employee) {
 		if (!departmentRepository.existsById(employee.getDep_id())) {
 			throw new ResourceNotFoundException("Department is not found");
 		}

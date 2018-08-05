@@ -71,7 +71,7 @@ public class EmployeeControllerTest {
 				.andDo(print()).andExpect(status().isOk());
 	}
 
-	// test delete employee
+	// test delete employee api
 	@Test
 	public void testDeleteEmployeeData() throws Exception {
 		mockMvc.perform(

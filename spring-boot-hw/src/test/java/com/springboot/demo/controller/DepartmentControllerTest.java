@@ -67,7 +67,7 @@ public class DepartmentControllerTest {
 				.andDo(print()).andExpect(status().isOk());
 	}
 
-	// test delete department
+	// test delete department api
 	@Test
 	public void testDeleteDepartmentData() throws Exception {
 		mockMvc.perform(
