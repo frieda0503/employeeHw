@@ -1,19 +1,12 @@
 package com.springboot.demo.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -31,14 +24,26 @@ public class Employee implements Serializable {
 
 	@Column(name = "DEP_ID")
 	private int dep_id;
-	
-	public int getDep_id() {
-		return dep_id;
-	}
 
-	public void setDep_id(int dep_id) {
-		this.dep_id = dep_id;
-	}
+	@Column(name = "GENDER")
+	private String gender;
+
+	@Column(name = "PHONE")
+	private String phone;
+
+	@Column(name = "ADDRESS")
+	private String address;
+
+	@Column(name = "AGE")
+	private int age;
+
+	@CreatedDate
+	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
+	private Date createTime;
+
+	@LastModifiedDate
+	@Column(name = "LAST_MODIFY")
+	private Date lastModify;
 
 	public int getId() {
 		return id;
@@ -54,6 +59,14 @@ public class Employee implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getDep_id() {
+		return dep_id;
+	}
+
+	public void setDep_id(int dep_id) {
+		this.dep_id = dep_id;
 	}
 
 	public String getGender() {
@@ -104,29 +117,18 @@ public class Employee implements Serializable {
 		this.lastModify = lastModify;
 	}
 
-	@Column(name = "GENDER")
-	private String gender;
-
-	@Column(name = "PHONE")
-	private String phone;
-
-	@Column(name = "ADDRESS")
-	private String address;
-
-	@Column(name = "AGE")
-	private int age;
-
-	@CreatedDate
-	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
-	private Date createTime;
-
-	@LastModifiedDate
-	@Column(name = "LAST_MODIFY")
-	private Date lastModify;
-
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + "]";
+		return "Employee{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", dep_id=" + dep_id +
+				", gender='" + gender + '\'' +
+				", phone='" + phone + '\'' +
+				", address='" + address + '\'' +
+				", age=" + age +
+				", createTime=" + createTime +
+				", lastModify=" + lastModify +
+				'}';
 	}
-
 }
