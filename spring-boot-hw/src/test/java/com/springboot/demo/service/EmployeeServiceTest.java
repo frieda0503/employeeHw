@@ -1,7 +1,6 @@
 package com.springboot.demo.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -12,7 +11,6 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.springboot.demo.model.Department;
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.repository.DepartmentRepository;
 import com.springboot.demo.repository.EmployeeRepository;

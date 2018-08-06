@@ -110,7 +110,7 @@ public class Employee implements Serializable {
 		this.age = age;
 	}
 
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -119,6 +119,7 @@ public class Employee implements Serializable {
 		this.createTime = createTime;
 	}
 
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getLastModify() {
 		return lastModify;
 	}

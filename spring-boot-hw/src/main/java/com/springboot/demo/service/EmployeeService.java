@@ -2,22 +2,17 @@ package com.springboot.demo.service;
 
 import java.util.List;
 
-//github.com/frieda0503/employeeHw.git
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-//github.com/frieda0503/employeeHw.git
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-//github.com/frieda0503/employeeHw.git
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.repository.DepartmentRepository;
 import com.springboot.demo.repository.EmployeeRepository;
-
 
 @Service
 public class EmployeeService {
@@ -28,15 +23,19 @@ public class EmployeeService {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
+	// for get all data
 	public List<Employee> getAll() {
 		return employeeRepository.findAll();
 	}
 
+	// for get all data by page
 	public Page<Employee> getAll(Integer page, Integer size) {
 		return employeeRepository.findAll(buildPageRequest(page, size));
 	}
 
-
+	/*
+	 * for add data ： 先判斷insert該員工時，所屬部門是否存在
+	 */
 	public Employee addEmployee(Employee employee) {
 		if (!departmentRepository.existsById(employee.getDep_id())) {
 			throw new ResourceNotFoundException("Department is not found");
@@ -45,7 +44,7 @@ public class EmployeeService {
 		return employeeRepository.save(employee);
 	}
 
-
+	// for update data
 	public Employee updateEmployee(Integer id, Employee employee) {
 		if (!employeeRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Employee is not found");
@@ -54,7 +53,7 @@ public class EmployeeService {
 		return employeeRepository.save(employee);
 	}
 
-
+	// for delete data
 	public void deleteEmployee(Integer id) {
 		if (!employeeRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Employee is not found");
@@ -63,9 +62,9 @@ public class EmployeeService {
 
 	}
 
+	// for paging
 	private Pageable buildPageRequest(Integer page, Integer size) {
-		return new PageRequest(page, size, Direction.DESC, "id");
+		return new PageRequest(page, size, Direction.ASC, "id");
 	}
-
 
 }

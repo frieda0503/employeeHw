@@ -29,18 +29,22 @@ public class DepartmentService {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
+	// for get all data
 	public List<Department> getAll() {
 		return departmentRepository.findAll();
 	}
 
+	// for get all data by page
 	public Page<Department> getAll(Integer page, Integer size) {
 		return departmentRepository.findAll(buildPageRequest(page, size));
 	}
 
+	// for add data
 	public Department addDepartment(Department department) {
 		return departmentRepository.save(department);
 	}
 
+	// for update data
 	public Department updateDepartment(Integer id, Department department) {
 		if (!departmentRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Department is not found");
@@ -50,6 +54,7 @@ public class DepartmentService {
 
 	}
 
+	// for delete data
 	public void deleteDepartment(Integer id) {
 		if (!departmentRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Department is not found");
@@ -57,6 +62,7 @@ public class DepartmentService {
 		departmentRepository.deleteById(id);
 	}
 
+	// for query data by condition
 	public Page<Department> getDepartmentData(String employeeName,
 			Integer employeeId, Integer age, String departmentName,
 			Integer page, Integer size) {
@@ -98,7 +104,8 @@ public class DepartmentService {
 				buildPageRequest(page, size));
 	}
 
+	// for paging
 	private Pageable buildPageRequest(Integer page, Integer size) {
-		return new PageRequest(page, size, Sort.Direction.DESC, "id");
+		return new PageRequest(page, size, Sort.Direction.ASC, "id");
 	}
 }

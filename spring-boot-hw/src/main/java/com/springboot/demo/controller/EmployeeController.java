@@ -39,13 +39,13 @@ public class EmployeeController {
 		return employeeService.getAll();
 	}
 
-	// get all data
+	// get all data by page
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(value = "/employees")
 	@ResponseBody
 	public Page<Employee> getAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "size", defaultValue = "5") Integer size) {
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		return employeeService.getAll(page, size);
 	}
 
@@ -55,17 +55,17 @@ public class EmployeeController {
 		employeeService.addEmployee(employee);
 	}
 
-	// update data
+	// update data by id
 	@PutMapping("/employee/{id}")
-	public void updateEmployee(@PathVariable(required = true) Integer id,
+	public Employee updateEmployee(@PathVariable(required = true) Integer id,
 			@RequestBody Employee employee) {
-		employeeService.updateEmployee(id, employee);
+		return employeeService.updateEmployee(id, employee);
 	}
 
-	// delete data
+	// delete data by id
 	@DeleteMapping("/employees/{id}")
 	public void deleteEmployee(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);
 	}
-
+	
 }
