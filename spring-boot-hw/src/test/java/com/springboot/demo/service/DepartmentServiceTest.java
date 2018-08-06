@@ -1,7 +1,6 @@
 package com.springboot.demo.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -31,24 +30,24 @@ public class DepartmentServiceTest {
 		Department tempdepartment = new Department();
 		tempdepartment.setId(1);
 		tempdepartment.setDep_name("開發1科");
-		Department department = spy(tempdepartment);
 
-		when(departmentService.addDepartment(new Department())).thenReturn(department);
+		when(departmentRepository.save(tempdepartment)).thenReturn(tempdepartment);
+
+		Department department = departmentService.addDepartment(tempdepartment);
+		assertEquals("開發1科", department.getDep_name());
 	}
 
 	// test update department method
 	@Test
 	public void testUpdateDepartmentData() throws Exception {
-		Department oldDepartment = new Department();
-		oldDepartment.setId(1);
-		oldDepartment.setDep_name("開發1科");
+		Department department = new Department();
+		department.setId(1);
+		department.setDep_name("開發7科");
 
-		Department newDepartment = new Department();
-		newDepartment.setId(1);
-		newDepartment.setDep_name("開發7科");
-		
-		when(departmentRepository.existsById(newDepartment.getId())).thenReturn(true);
-		when(departmentService.updateDepartment(newDepartment.getId(), newDepartment)).thenReturn(newDepartment);
+		when(departmentRepository.existsById(department.getId())).thenReturn(true);
+		when(departmentRepository.save(department)).thenReturn(department);
+
+		assertEquals("開發7科", department.getDep_name());
 	}
 
 	// test delete department method
@@ -56,9 +55,9 @@ public class DepartmentServiceTest {
 	public void testDeleteDepartmentData() throws Exception {
 		Department department = new Department();
 		department.setId(1);
-		
+
 		departmentService.deleteDepartment(department.getId());
-		
+
 		assertEquals(department, null);
 	}
 

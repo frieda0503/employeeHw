@@ -38,26 +38,29 @@ public class EmployeeServiceTest {
 		tempEmployee.setAge(40);
 		tempEmployee.setGender("Female");
 		tempEmployee.setId(1);
-		Employee employee = spy(tempEmployee);
 		
-		when(departmentRepository.existsById(employee.getDep_id())).thenReturn(true);
-		when(employeeService.addEmployee(employee)).thenReturn(employee);
+		when(departmentRepository.existsById(tempEmployee.getDep_id())).thenReturn(true);
+		when(employeeRepository.save(tempEmployee)).thenReturn(tempEmployee);
+		
+		Employee employee = employeeService.addEmployee(tempEmployee);
+		assertEquals("Female", employee.getGender());
+		
+		
 	}
 
 	// test update employee method
 	@Test
 	public void testUpdateEmployeeData() throws Exception {
-		Employee oldEmployee = new Employee();
-		oldEmployee.setId(1);
-		oldEmployee.setName("Linda");
-		oldEmployee.setPhone("0123456");
-
-		Employee newEmployee = new Employee();
-		newEmployee.setId(1);
-		newEmployee.setPhone("023456");
+		Employee tempEmployee = new Employee();
+		tempEmployee.setId(1);
+		tempEmployee.setPhone("023456");
 		
-		when(employeeRepository.existsById(newEmployee.getId())).thenReturn(true);
-		when(employeeService.updateEmployee(newEmployee.getId(), newEmployee)).thenReturn(newEmployee);
+		when(employeeRepository.existsById(1)).thenReturn(true);
+		when(employeeRepository.save(tempEmployee)).thenReturn(tempEmployee);
+		
+		Employee employee = employeeService.updateEmployee(tempEmployee.getId(), tempEmployee);
+		assertEquals("023456", employee.getPhone());
+		
 	}
 
 	// test delete employee method
