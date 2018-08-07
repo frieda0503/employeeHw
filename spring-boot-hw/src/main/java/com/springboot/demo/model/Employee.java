@@ -9,6 +9,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -31,8 +33,9 @@ public class Employee implements Serializable {
 	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "DEP_ID")
-	private int dep_id;
+	@ManyToOne
+	@JoinColumn(name = "DEP_ID",nullable=false)
+	private Department department;
 
 	@Column(name = "GENDER")
 	private String gender;
@@ -70,12 +73,12 @@ public class Employee implements Serializable {
 		this.name = name;
 	}
 
-	public int getDep_id() {
-		return dep_id;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDep_id(int dep_id) {
-		this.dep_id = dep_id;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public String getGender() {
@@ -133,7 +136,7 @@ public class Employee implements Serializable {
 		return "Employee{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", dep_id=" + dep_id +
+				", department=" + department +
 				", gender='" + gender + '\'' +
 				", phone='" + phone + '\'' +
 				", address='" + address + '\'' +

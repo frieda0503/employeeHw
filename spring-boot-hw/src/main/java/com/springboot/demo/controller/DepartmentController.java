@@ -45,26 +45,10 @@ public class DepartmentController {
 		return departmentService.getAll(page, size);
 	}
 
-	// query by condition
-	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(value = "/condition")
-	public Page<Department> getByCondition(
-			@RequestParam(required = false) String employeeName,
-			@RequestParam(required = false) Integer employeeId,
-			@RequestParam(required = false) Integer age,
-			@RequestParam(required = false) String departmentName,
-			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "size", defaultValue = "10") Integer size) {
-
-		Page<Department> result = departmentService.getDepartmentData(
-				employeeName, employeeId, age, departmentName, page, size);
-		return result;
-	}
-
 	// add data
 	@PostMapping("/department")
-	public void addDepartment(@RequestBody Department department) {
-		departmentService.addDepartment(department);
+	public Department addDepartment(@RequestBody Department department) {
+		return departmentService.addDepartment(department);
 	}
 
 	// update data by id

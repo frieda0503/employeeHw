@@ -1,6 +1,7 @@
 package com.springboot.demo.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -79,5 +80,44 @@ public class EmployeeControllerTest {
 						MediaType.APPLICATION_JSON_UTF8)).andExpect(
 				status().isOk());
 	}
+	
+	/*-------------------test get data by condition-------------------*/
+	@Test
+	public void testGetEmployeeDataByNoParam() throws Exception {
+		mockMvc.perform(
+				get("/api/employee/condition").contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testGetEmployeeDataByAllParam() throws Exception {
+		String employeeName = "Rock";
+		String employeeId = "1";
+		String age = "25";
+		String departmentName = "開發1科";
+
+		mockMvc.perform(
+				get("/api/employee/condition")  
+				        .param("employeeName", employeeName)
+						.param("employeeId", employeeId)
+						.param("age", age)
+						.param("departmentName", departmentName)
+						.contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andDo(print()).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testGetEmployeeDataByParam() throws Exception {
+		String employeeName = "Rock";
+		String departmentName = "開發1科";
+
+		mockMvc.perform(
+				get("/api/employee/condition")  
+				        .param("employeeName", employeeName)
+						.param("departmentName", departmentName)
+						.contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andDo(print()).andExpect(status().isOk());
+	}
+
 
 }

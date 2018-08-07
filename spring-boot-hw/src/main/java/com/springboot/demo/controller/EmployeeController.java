@@ -51,8 +51,8 @@ public class EmployeeController {
 
 	// add data
 	@PostMapping("/employee")
-	public void addEmployee(@RequestBody Employee employee) {
-		employeeService.addEmployee(employee);
+	public Employee addEmployee(@RequestBody Employee employee) {
+		return employeeService.addEmployee(employee);
 	}
 
 	// update data by id
@@ -67,5 +67,21 @@ public class EmployeeController {
 	public void deleteEmployee(@PathVariable Integer id) {
 		employeeService.deleteEmployee(id);
 	}
-	
+
+	// query by condition
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "/employee/condition")
+	public Page<Employee> getByCondition(
+			@RequestParam(required = false) String employeeName,
+			@RequestParam(required = false) Integer employeeId,
+			@RequestParam(required = false) Integer age,
+			@RequestParam(required = false) String departmentName,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+
+		Page<Employee> result = employeeService.getEmployeeData(employeeName,
+				employeeId, age, departmentName, page, size);
+		return result;
+	}
+
 }
