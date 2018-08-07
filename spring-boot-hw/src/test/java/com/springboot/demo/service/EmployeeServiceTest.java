@@ -55,7 +55,6 @@ public class EmployeeServiceTest {
 		tempEmployee.setGender("Female");
 		tempEmployee.setId(1);
 
-		// when(departmentRepository.existsById(tempEmployee.getDepartment().getId())).thenReturn(true);
 		when(employeeRepository.save(tempEmployee)).thenReturn(tempEmployee);
 
 		Employee employee = employeeService.addEmployee(tempEmployee);
