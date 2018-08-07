@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import com.springboot.demo.model.Department;
 import com.springboot.demo.model.Employee;
+import com.springboot.demo.repository.DepartmentRepository;
 import com.springboot.demo.repository.EmployeeRepository;
 
 @Service
@@ -28,6 +29,9 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private DepartmentRepository departmentRepository;
 
 	// for get all data
 	public List<Employee> getAll() {
@@ -41,6 +45,9 @@ public class EmployeeService {
 
 	// for add data
 	public Employee addEmployee(Employee employee) {
+		if (!departmentRepository.existsById(employee.getDepartment().getId())) {
+			throw new ResourceNotFoundException("Department is not found");
+		}
 		return employeeRepository.save(employee);
 	}
 
