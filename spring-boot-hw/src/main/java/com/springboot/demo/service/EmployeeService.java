@@ -45,7 +45,7 @@ public class EmployeeService {
 
 	// for add data
 	public Employee addEmployee(Employee employee) {
-		if (!departmentRepository.existsById(employee.getDepartment().getId())) {
+		if (!departmentRepository.exists(employee.getDepartment().getId())) {
 			throw new ResourceNotFoundException("Department is not found");
 		}
 		return employeeRepository.save(employee);
@@ -53,19 +53,19 @@ public class EmployeeService {
 
 	// for update data
 	public Employee updateEmployee(Integer id, Employee employee) {
-		if (!employeeRepository.existsById(id)) {
+		if (!employeeRepository.exists(id)) {
 			throw new ResourceNotFoundException("Employee is not found");
 		}
-		employee.setId(id);
+		employee.setEmp_id(id);
 		return employeeRepository.save(employee);
 	}
 
 	// for delete data
 	public void deleteEmployee(Integer id) {
-		if (!employeeRepository.existsById(id)) {
+		if (!employeeRepository.exists(id)) {
 			throw new ResourceNotFoundException("Employee is not found");
 		}
-		employeeRepository.deleteById(id);
+		employeeRepository.delete(id);
 
 	}
 

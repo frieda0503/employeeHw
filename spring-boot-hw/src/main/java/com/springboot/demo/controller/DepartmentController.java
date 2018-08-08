@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.demo.model.Department;
 import com.springboot.demo.service.DepartmentService;
+import com.springboot.demo.vo.DepartmentVo;
 
 @RestController
+@ResponseBody
 @RequestMapping(value = "/api")
 public class DepartmentController {
 
@@ -32,7 +34,7 @@ public class DepartmentController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(value = "/departments/all")
 	@ResponseBody
-	public List<Department> getAll() {
+	public List<DepartmentVo> getAll() {
 		return departmentService.getAll();
 	}
 
@@ -47,16 +49,17 @@ public class DepartmentController {
 
 	// add data
 	@PostMapping("/department")
-	public Department addDepartment(@RequestBody Department department) {
-		return departmentService.addDepartment(department);
+	public DepartmentVo addDepartment(@RequestBody DepartmentVo departmentVo) {
+		return departmentService.addDepartment(departmentVo);
 	}
 
 	// update data by id
 	@PutMapping("/department/{id}")
-	public Department updateDepartment(
+	public DepartmentVo updateDepartment(
 			@PathVariable(required = true) Integer id,
-			@RequestBody Department department) {
-		return departmentService.updateDepartment(id, department);
+			@RequestBody DepartmentVo departmentVo) {
+		departmentVo.setId(id);
+		return departmentService.updateDepartment(departmentVo);
 	}
 
 	// delete data by id

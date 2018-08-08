@@ -53,9 +53,9 @@ public class EmployeeServiceTest {
 		tempEmployee.setDepartment(department);
 		tempEmployee.setAge(40);
 		tempEmployee.setGender("Female");
-		tempEmployee.setId(1);
+		tempEmployee.setEmp_id(1);
 
-		when(departmentRepository.existsById(1)).thenReturn(true);
+		when(departmentRepository.exists(1)).thenReturn(true);
 		when(employeeRepository.save(tempEmployee)).thenReturn(tempEmployee);
 
 		Employee employee = employeeService.addEmployee(tempEmployee);
@@ -67,14 +67,14 @@ public class EmployeeServiceTest {
 	@Test
 	public void testUpdateEmployeeData() throws Exception {
 		Employee tempEmployee = new Employee();
-		tempEmployee.setId(1);
+		tempEmployee.setEmp_id(1);
 		tempEmployee.setPhone("023456");
 
-		when(employeeRepository.existsById(1)).thenReturn(true);
+		when(employeeRepository.exists(1)).thenReturn(true);
 		when(employeeRepository.save(tempEmployee)).thenReturn(tempEmployee);
 
 		Employee employee = employeeService.updateEmployee(
-				tempEmployee.getId(), tempEmployee);
+				tempEmployee.getEmp_id(), tempEmployee);
 		assertEquals("023456", employee.getPhone());
 
 	}
@@ -83,9 +83,9 @@ public class EmployeeServiceTest {
 	@Test(expected = ResourceNotFoundException.class)
 	public void testDeleteEmployeeData() throws Exception {
 		Employee employee = new Employee();
-		employee.setId(1);
+		employee.setEmp_id(1);
 
-		employeeService.deleteEmployee(employee.getId());
+		employeeService.deleteEmployee(employee.getEmp_id());
 
 		assertEquals(employee, null);
 	}
@@ -125,7 +125,7 @@ public class EmployeeServiceTest {
 		department.setDep_name(departmentName);
 
 		Employee employee = new Employee();
-		employee.setId(1);
+		employee.setEmp_id(1);
 		employee.setAge(25);
 		employee.setName(employeeName);
 		employee.setDepartment(department);
@@ -154,7 +154,7 @@ public class EmployeeServiceTest {
 		assertEquals(1, result.getTotalElements());
 
 		assertEquals(employeeName, result.getContent().get(0).getName());
-		assertEquals(1, result.getContent().get(0).getId());
+		assertEquals(1, result.getContent().get(0).getEmp_id());
 		assertEquals(25, result.getContent().get(0).getAge());
 		assertEquals(departmentName, result.getContent().get(0).getDepartment().getDep_name());
 

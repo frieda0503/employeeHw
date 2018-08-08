@@ -22,6 +22,7 @@ import com.springboot.demo.service.DepartmentService;
 import com.springboot.demo.service.EmployeeService;
 
 @RestController
+@ResponseBody
 @RequestMapping(value = "/api")
 public class EmployeeController {
 

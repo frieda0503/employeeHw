@@ -27,9 +27,6 @@ public class Department implements Serializable {
 	@Column(name = "DEP_NAME")
 	private String dep_name;
 
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="department")
 	Set<Employee> employees = Sets.newHashSet();
@@ -48,6 +45,10 @@ public class Department implements Serializable {
 
 	public void setDep_name(String dep_name) {
 		this.dep_name = dep_name;
+	}
+	
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
 	@Override

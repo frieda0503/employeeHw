@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springboot.demo.model.Department;
 import com.springboot.demo.repository.DepartmentRepository;
+import com.springboot.demo.vo.DepartmentVo;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { DepartmentService.class })
@@ -28,30 +29,31 @@ public class DepartmentServiceTest {
 	@Test
 	public void testAddDepartmentData() throws Exception {
 		Department tempdepartment = new Department();
-		tempdepartment.setId(1);
-		tempdepartment.setDep_name("開發1科");
+		
+		DepartmentVo departmentVo = new DepartmentVo();
+		departmentVo.setId(1);
+		departmentVo.setDep_name("開發1科");
 
-		when(departmentRepository.save(tempdepartment)).thenReturn(
-				tempdepartment);
+		when(departmentRepository.save(tempdepartment)).thenReturn(tempdepartment);
 
-		Department department = departmentService.addDepartment(tempdepartment);
-		assertEquals("開發1科", department.getDep_name());
+		departmentService.addDepartment(departmentVo);
+		assertEquals("開發1科", departmentVo.getDep_name());
 	}
 
 	// test update department method
 	@Test
 	public void testUpdateDepartmentData() throws Exception {
+		DepartmentVo departmentVo = new DepartmentVo();
 		Department department = new Department();
-		department.setId(1);
-		department.setDep_name("開發7科");
+		departmentVo.setId(1);
+		departmentVo.setDep_name("開發7科");
 
-		when(departmentRepository.existsById(department.getId())).thenReturn(
-				true);
+		when(departmentRepository.exists(departmentVo.getId())).thenReturn(true);
 		when(departmentRepository.save(department)).thenReturn(department);
 
-		departmentService.updateDepartment(department.getId(), department);
+		departmentService.updateDepartment(departmentVo);
 
-		assertEquals("開發7科", department.getDep_name());
+		assertEquals("開發7科", departmentVo.getDep_name());
 	}
 
 	// test delete department method

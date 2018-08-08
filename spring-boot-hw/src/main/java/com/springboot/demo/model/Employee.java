@@ -28,13 +28,13 @@ public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", updatable = false, nullable = false)
-	private int id;
+	private int emp_id;
 
 	@Column(name = "NAME")
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name = "DEP_ID",nullable=false)
+	@JoinColumn(name = "DEP_ID", nullable = false)
 	private Department department;
 
 	@Column(name = "GENDER")
@@ -57,12 +57,12 @@ public class Employee implements Serializable {
 	@Column(name = "LAST_MODIFY")
 	private Date lastModify;
 
-	public int getId() {
-		return id;
+	public int getEmp_id() {
+		return emp_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmp_id(int emp_id) {
+		this.emp_id = emp_id;
 	}
 
 	public String getName() {
@@ -133,16 +133,11 @@ public class Employee implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Employee{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", department=" + department +
-				", gender='" + gender + '\'' +
-				", phone='" + phone + '\'' +
-				", address='" + address + '\'' +
-				", age=" + age +
-				", createTime=" + createTime +
-				", lastModify=" + lastModify +
-				'}';
+		return "Employee{" + "id=" + emp_id + ", name='" + name + '\''
+				+ ", department=" + department + ", gender='" + gender + '\''
+				+ ", phone='" + phone + '\'' + ", address='" + address + '\''
+				+ ", age=" + age + ", createTime=" + createTime
+				+ ", lastModify=" + lastModify + '}';
 	}
+
 }
